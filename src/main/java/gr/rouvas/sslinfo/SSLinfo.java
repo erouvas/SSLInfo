@@ -5,29 +5,25 @@
  */
 package gr.rouvas.sslinfo;
 
-import java.io.FileInputStream;
 import java.math.BigInteger;
 import java.security.KeyManagementException;
-import java.security.KeyStore;
 import java.security.NoSuchAlgorithmException;
-import javax.net.ssl.KeyManager;
-import javax.net.ssl.KeyManagerFactory;
+import java.security.cert.CertificateException;
+
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
-import java.security.cert.CertificateException;
 import javax.security.cert.X509Certificate;
 
 /**
  *
- *
  * run with Maven:
  *
- * mvn clean install exec:java -Dexec.mainClass=gr.rouvas.sslinfo.SSLinfo "-Dexec.args=www.theregister.co.uk 443" -quiet
+ * mvn clean install exec:java -Dexec.mainClass=gr.rouvas.sslinfo.SSLinfo
+ * "-Dexec.args=www.theregister.co.uk 443" -quiet
  *
  * or outside Maven with
  *
@@ -57,10 +53,7 @@ public class SSLinfo {
 
       @Override
       public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-        return new java.security.cert.X509Certificate[]{};
-      }
-    }
-  };
+        return new java.security.cert.X509Certificate[]{};}}};
 
   private static final SSLContext trustAllSslContext;
 
@@ -88,7 +81,8 @@ public class SSLinfo {
     //
     // required after Java.7 to workaround some servers with spurious responses
     //
-    // alternative for not recompiling: java -Djsse.enableSNIExtension=false yourClas
+    // alternative for not recompiling: java -Djsse.enableSNIExtension=false
+    // yourClas
     //
     System.setProperty("jsse.enableSNIExtension", "false");
 
