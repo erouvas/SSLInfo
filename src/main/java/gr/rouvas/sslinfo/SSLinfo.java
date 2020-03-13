@@ -28,11 +28,11 @@ import javax.security.cert.X509Certificate;
  * 
  * run with Maven:
  * 
- * mvn clean install exec:java -Dexec.mainClass=gr.rouvas.sslinfo.SSLinfo "-Dexec.args=sepanet.i-customs.gr 443" -quiet
+ * mvn clean install exec:java -Dexec.mainClass=gr.rouvas.sslinfo.SSLinfo "-Dexec.args=www.theregister.co.uk 443" -quiet
  * 
  * or outside Maven with
  * 
- * java -cp SSLinfo-1.0.jar gr.rouvas.sslinfo.SSLinfo sepanet.i-customs.gr 443
+ * java -cp SSLinfo-1.0.jar gr.rouvas.sslinfo.SSLinfo www.theregister.co.uk 443
  *
  * More info at : The correct way to do it:
  * https://developers.redhat.com/blog/2017/10/27/ssl-testing-tool/
