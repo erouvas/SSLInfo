@@ -24,14 +24,13 @@ import javax.security.cert.X509Certificate;
 
 /**
  *
- * @author rouvas
- * 
+ *
  * run with Maven:
- * 
+ *
  * mvn clean install exec:java -Dexec.mainClass=gr.rouvas.sslinfo.SSLinfo "-Dexec.args=www.theregister.co.uk 443" -quiet
- * 
+ *
  * or outside Maven with
- * 
+ *
  * java -cp SSLinfo-1.0.jar gr.rouvas.sslinfo.SSLinfo www.theregister.co.uk 443
  *
  * More info at : The correct way to do it:
@@ -93,11 +92,7 @@ public class SSLinfo {
     //
     System.setProperty("jsse.enableSNIExtension", "false");
 
-    // the correct way of doing it 
-//    SSLinfo sclient = new SSLinfo();
-//    SSLContext sslContext = sclient.createSSLContext();
     try {
-      //SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
 
       // the following lines are used to accept any and all SSL certificatess
       SSLContext sc = SSLContext.getInstance("SSL");
@@ -105,11 +100,6 @@ public class SSLinfo {
 
       SSLSocketFactory sslSocketFactory = sc.getSocketFactory();
 
-      // to get a connection to a runtime URL
-//      HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-//      URL url = new URL("https://hostname/index.html");
-
-      // the rest of the code is the same
       SSLSocket sslSocket = (SSLSocket) sslSocketFactory.createSocket(hostname, port);
       sslSocket.startHandshake();
       SSLSession sslSession = (SSLSession) sslSocket.getSession();
@@ -141,36 +131,6 @@ public class SSLinfo {
       }
     } catch (Exception ex) {
       ex.printStackTrace();
-    }
-  }
-
-  private SSLContext createSSLContext() {
-    try {
-
-      /*
-       * How should be done
-       */
-      KeyStore keyStore = KeyStore.getInstance("JKS");
-      keyStore.load(new FileInputStream(CACERTS_LOCATION), "changeit".toCharArray());
-
-      // Create key manager
-      KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("SunX509");
-      keyManagerFactory.init(keyStore, "changeit".toCharArray());
-      KeyManager[] km = keyManagerFactory.getKeyManagers();
-
-      // Create trust manager
-      TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance("SunX509");
-      trustManagerFactory.init(keyStore);
-      TrustManager[] tm = trustManagerFactory.getTrustManagers();
-      // Initialize SSLContext
-      SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
-      sslContext.init(km, tm, null);
-
-      return sslContext;
-
-    } catch (Exception ex) {
-      ex.printStackTrace();
-      return null;
     }
   }
 
